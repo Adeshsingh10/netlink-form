@@ -1,4 +1,4 @@
-console.log("hello here");
+import { sub } from "./fun.js";
 
 // ---------------- validation start here -----------------
 let vname = document.getElementById("nametext");
@@ -7,10 +7,8 @@ let vpassword = document.getElementById("exampleInputPassword1");
 let vfile = document.getElementById("file1");
 let valdemail = false;
 let validpassword = false;
-$('#success').hide();
-$('#fail').hide();
-
-
+$("#success").hide();
+$("#fail").hide();
 
 vname.addEventListener("blur", () => {
   console.log("name is blurred");
@@ -77,17 +75,16 @@ vfile.addEventListener("blur", () => {
   }
 });
 
-
 $(document).ready(function () {
-  var date_input = $("#date"); 
+  var date_input = $("#date");
   var container =
     $(".bootstrap-iso form").length > 0
       ? $(".bootstrap-iso form").parent()
       : "body";
   var options = {
-    multidate: true,
+    multidate: 3,
     format: "yyyy-mm-dd",
-    selectMax : 2,
+    selectMax: 2,
     container: container,
     todayHighlight: true,
     autoclose: false,
@@ -156,9 +153,32 @@ $(document).ready(function () {
 //   document.getElementById("txtobj").innerHTML = myJSON;
 // }
 
+// import the sub function from fun.js file
 
-// import the sub function from fun.js file 
-import { sub } from './fun.js';
+document.querySelector("#subject").addEventListener("change", function () {
+  var date_input = $("#date");
+  var container =
+    $(".bootstrap-iso form").length > 0
+      ? $(".bootstrap-iso form").parent()
+      : "body";
+
+  let count = 0;
+  const options = document.getElementById("subject").options;
+  for (let index = 0; index < options.length; index++) {
+    if (options[index].selected) {
+      count++;
+    }
+  }
+  var datePickerOptions = {
+    multidate: count,
+    format: "yyyy-mm-dd",
+    selectMax: 2,
+    container: container,
+    todayHighlight: true,
+    autoclose: false,
+  };
+  date_input.datepicker(datePickerOptions);
+});
 
 let submit = document.getElementById("submit1");
 submit.addEventListener("click", (e) => {
@@ -167,24 +187,22 @@ submit.addEventListener("click", (e) => {
   console.log(validpassword, valdemail);
   // submit your form here
   if (valdemail && validpassword) {
-    console.log("Email and  password are valid submitting the form")
+    console.log("Email and  password are valid submitting the form");
     let success = document.getElementById("success");
     success.classList.add("show");
     // fail.classList.remove("show");
-    $('#fail').hide();
-    $('#success').show();
-
-  }
-  else {
-    console.log("one of email and password are not valid , hence not submitting the form")
+    $("#fail").hide();
+    $("#success").show();
+  } else {
+    console.log(
+      "one of email and password are not valid , hence not submitting the form"
+    );
     let fail = document.getElementById("fail");
     fail.classList.add("show");
     //  success.classList.remove("show");
-    $('#success').hide();
-    $('#fail').show();
-
+    $("#success").hide();
+    $("#fail").show();
   }
-
 
   sub();
 });
