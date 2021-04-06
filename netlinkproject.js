@@ -156,7 +156,7 @@ $(document).ready(function () {
 // import the sub function from fun.js file
 
 document.querySelector("#subject").addEventListener("change", function () {
-  var date_input = $("#date");
+  var date_input = $(".multidate #date");
   var container =
     $(".bootstrap-iso form").length > 0
       ? $(".bootstrap-iso form").parent()
@@ -169,15 +169,18 @@ document.querySelector("#subject").addEventListener("change", function () {
       count++;
     }
   }
+  date_input.remove();
+  $(".multidate").append(date_input);
+
   var datePickerOptions = {
     multidate: count,
     format: "yyyy-mm-dd",
-    selectMax: 2,
     container: container,
     todayHighlight: true,
     autoclose: false,
   };
   date_input.datepicker(datePickerOptions);
+  
 });
 
 let submit = document.getElementById("submit1");
